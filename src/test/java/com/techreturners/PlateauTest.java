@@ -24,7 +24,17 @@ class PlateauTest {
         assertEquals(GridConstants.DEFAULT_LEFT_LOWER_CORNER_Y, p.getMinY());
         assertEquals(upperRightX, p.getMaxX());
         assertEquals(upperRightY, p.getMaxY());
-
-
+    }
+    @Test
+    public void createPlateauWithAllUserProvidedCoordinates() {
+        int lowerLeftX = -5;
+        int lowerLeftY = -5;
+        int upperRightX = 5;
+        int upperRightY = 5;
+        Plateau p = new Plateau(lowerLeftX, lowerLeftY, upperRightX,upperRightY);
+        assertEquals(lowerLeftX, p.getMinX());
+        assertEquals(lowerLeftY, p.getMinY());
+        assertEquals(upperRightX, p.getMaxX());
+        assertEquals(upperRightY, p.getMaxY());
     }
 }
