@@ -15,7 +15,14 @@ public class Plateau {
         maxY = GridConstants.DEFAULT_RIGHT_UPPER_CORNER_Y;
     }
 
-    public int getMaxX() {
+    public Plateau(int maxX, int maxY) {
+        minX = GridConstants.DEFAULT_LEFT_LOWER_CORNER_X;
+        minY = GridConstants.DEFAULT_LEFT_LOWER_CORNER_Y;
+        this.maxX = maxX;
+        this.maxY = maxY;
+    }
+
+        public int getMaxX() {
         return maxX;
     }
 
