@@ -55,6 +55,14 @@ public class Rover {
             case S -> orientation = E;
             case E -> orientation = N;
         }
+    }
 
+    public void turnRight() {
+        switch (orientation) {
+            case N -> orientation = E;
+            case E -> orientation = S;
+            case S -> orientation = W;
+            case W -> orientation = N;
+        }
     }
 }

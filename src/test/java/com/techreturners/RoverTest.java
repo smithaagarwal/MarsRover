@@ -3,6 +3,8 @@ package com.techreturners;
 import com.techreturners.constants.Direction;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -115,5 +117,18 @@ class RoverTest {
         Rover r = new Rover(3, 3, Direction.E);
         r.turnLeft();
         assertEquals(Direction.N, r.getOrientation());
+    }
+
+    @ParameterizedTest(name = "rover orientation={0}")
+    @EnumSource(Direction.class)
+    void turnRightTest (Direction direction){
+        Rover r = new Rover(3,3, direction);
+        r.turnRight();
+        switch (direction) {
+            case N ->  assertEquals(Direction.E, r.getOrientation());
+            case E -> assertEquals(Direction.S, r.getOrientation());
+            case S -> assertEquals(Direction.W, r.getOrientation());
+            case W -> assertEquals(Direction.N, r.getOrientation());
+        }
     }
 }
