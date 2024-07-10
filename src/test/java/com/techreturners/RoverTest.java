@@ -95,4 +95,25 @@ class RoverTest {
         r.turnLeft();
         assertEquals(Direction.W, r.getOrientation());
     }
+
+    @Test
+    void shouldSetOrientationToS_whenRoverCurrentOrientationIsW_turnLeft() {
+        Rover r = new Rover(3, 3, Direction.W);
+        r.turnLeft();
+        assertEquals(Direction.S, r.getOrientation());
+    }
+
+    @Test
+    void shouldSetOrientationToE_whenRoverCurrentOrientationIsS_turnLeft() {
+        Rover r = new Rover(3, 3, Direction.S);
+        r.turnLeft();
+        assertEquals(Direction.E, r.getOrientation());
+    }
+
+    @Test
+    void shouldSetOrientationToN_whenRoverCurrentOrientationIsE_turnLeft() {
+        Rover r = new Rover(3, 3, Direction.E);
+        r.turnLeft();
+        assertEquals(Direction.N, r.getOrientation());
+    }
 }

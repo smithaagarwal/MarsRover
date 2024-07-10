@@ -2,6 +2,8 @@ package com.techreturners;
 
 import com.techreturners.constants.Direction;
 
+import static com.techreturners.constants.Direction.*;
+
 public class Rover {
     private int posX;
     private int posY;
@@ -47,8 +49,12 @@ public class Rover {
     }
 
     public void turnLeft() {
-        if (orientation == Direction.N)
-            orientation= Direction.W;
+        switch (orientation) {
+            case N -> orientation = W;
+            case W -> orientation = S;
+            case S -> orientation = E;
+            case E -> orientation = N;
+        }
 
     }
 }
