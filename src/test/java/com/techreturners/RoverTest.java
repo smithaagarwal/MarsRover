@@ -33,4 +33,20 @@ class RoverTest {
         assertEquals(4,r.getPosY());
     }
 
+    @Test
+    public void shouldIncreaseYbyOne_whenRoverDirectionIsN_moveRover() {
+        Rover r = new Rover(3,4, Direction.N);
+        r.moveRover();
+        assertEquals(3,r.getPosX());
+        assertEquals(5,r.getPosY());
+    }
+
+    @Test
+    public void shouldDecreaseYbyOne_whenRoverDirectionIsN_moveRover() {
+        Rover r = new Rover(3,4, Direction.S);
+        r.moveRover();
+        assertEquals(3,r.getPosX());
+        assertEquals(3,r.getPosY());
+    }
+
 }
