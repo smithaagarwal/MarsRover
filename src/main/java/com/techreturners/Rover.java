@@ -36,4 +36,9 @@ public class Rover {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
+
+    public void moveRover() {
+        if(direction==Direction.E)
+            posX++;
+    }
 }

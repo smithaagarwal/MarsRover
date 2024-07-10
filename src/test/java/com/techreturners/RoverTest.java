@@ -17,4 +17,12 @@ class RoverTest {
         assertEquals(dir,marsRover.getDirection());
     }
 
+    @Test
+    public void shouldIncreaseXbyOne_whenRoverDirectionIsE_moveRover() {
+        Rover r = new Rover(3,4, Direction.E);
+        r.moveRover();
+        assertEquals(4,r.getPosX());
+        assertEquals(4,r.getPosY());
+    }
+
 }
