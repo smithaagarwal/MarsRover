@@ -39,15 +39,10 @@ public class Rover {
 
     public void moveRover(Plateau plateau) {
         switch (orientation) {
-            case E -> {
-                posX = (posX == plateau.getMaxX())? plateau.getMinX(): posX+1;
-            }
-
-            case W -> {
-                posX = (posX == plateau.getMinX())? plateau.getMaxX(): posX-1;
-            }
-            case N -> posY++;
-            case S -> posY--;
+            case E -> posX = (posX == plateau.getMaxX())? plateau.getMinX(): posX+1;
+            case W -> posX = (posX == plateau.getMinX())? plateau.getMaxX(): posX-1;
+            case N -> posY = (posY == plateau.getMaxY())? plateau.getMinY(): posY+1;
+            case S -> posY = (posY == plateau.getMinY())? plateau.getMaxY(): posY-1;
         }
     }
 }

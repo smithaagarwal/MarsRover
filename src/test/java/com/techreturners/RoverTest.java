@@ -71,4 +71,20 @@ class RoverTest {
         assertEquals(4,r.getPosY());
     }
 
+    @Test
+    public void shouldSetYtoMinYCoordinatesOfPlateau_whenRoverDirectionIsSAndPosYIsMaxYOfPlateau_moveRover() {
+        Rover r = new Rover(3,plateau.getMinY(), Direction.S);
+        r.moveRover(plateau);
+        assertEquals(3,r.getPosX());
+        assertEquals(plateau.getMaxY(),r.getPosY());
+    }
+
+    @Test
+    public void shouldSetYtoMaxYCoordinatesOfPlateau_whenRoverDirectionIsNAndPosYIsMinYOfPlateau_moveRover() {
+        Rover r = new Rover(3,plateau.getMaxY(), Direction.N);
+        r.moveRover(plateau);
+        assertEquals(3,r.getPosX());
+        assertEquals(plateau.getMinY(),r.getPosY());
+    }
+
 }
