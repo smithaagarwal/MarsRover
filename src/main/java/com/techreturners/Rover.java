@@ -1,6 +1,7 @@
 package com.techreturners;
 
 import com.techreturners.constants.Direction;
+import com.techreturners.constants.Instruction;
 
 import static com.techreturners.constants.Direction.*;
 
@@ -72,6 +73,17 @@ public class Rover {
             case E -> orientation = S;
             case S -> orientation = W;
             case W -> orientation = N;
+        }
+    }
+
+    public void executeInstructionSet(Plateau plateau) {
+        String[] instructionArray = instructions.split("");
+        for(String singleInstruction: instructionArray) {
+            switch (Instruction.valueOf(singleInstruction)) {
+                case L -> turnLeft();
+                case R -> turnRight();
+                case M -> moveRover(plateau);
+            }
         }
     }
 }

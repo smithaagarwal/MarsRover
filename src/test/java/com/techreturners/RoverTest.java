@@ -4,6 +4,7 @@ import com.techreturners.constants.Direction;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -130,5 +131,20 @@ class RoverTest {
             case S -> assertEquals(Direction.W, r.getOrientation());
             case W -> assertEquals(Direction.N, r.getOrientation());
         }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1,2,'N','LMLMLMLMM',1,3,'N'",
+            "3,3,'E','MMRMMRMRRM',5,1,'E'"
+    })
+    public void executeInstructionSetTest(int roverInitialPosX, int roverInitialPosY, String roverInitialOrientation,
+                                          String roverInstructionSet, int roverExpectedPosX, int roverExpectedPosY, String roverExpectedOrientation) {
+        Rover r = new Rover(roverInitialPosX, roverInitialPosY, Direction.valueOf(roverInitialOrientation));
+        r.setInstructions(roverInstructionSet);
+        r.executeInstructionSet(plateau);
+        assertEquals(roverExpectedPosX, r.getPosX());
+        assertEquals(roverExpectedPosY, r.getPosY());
+        assertEquals(Direction.valueOf(roverExpectedOrientation), r.getOrientation());
     }
 }
