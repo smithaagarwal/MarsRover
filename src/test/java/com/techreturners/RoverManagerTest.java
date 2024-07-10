@@ -28,7 +28,8 @@ class RoverManagerTest {
             "'LRMM', true",
             "'LLR', true",
             "'MMM', true",
-            "'LRX', false"
+            "'LRX', false",
+            "'lrm', false",
     })
     public void isInstructionSetValidTest(String instructionSet, boolean expectedOutput) {
         assertEquals(expectedOutput, RoverManager.isInstructionSetValid(instructionSet));

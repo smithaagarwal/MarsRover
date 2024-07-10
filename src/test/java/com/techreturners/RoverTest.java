@@ -136,7 +136,8 @@ class RoverTest {
     @ParameterizedTest
     @CsvSource({
             "1,2,'N','LMLMLMLMM',1,3,'N'",
-            "3,3,'E','MMRMMRMRRM',5,1,'E'"
+            "3,3,'E','MMRMMRMRRM',5,1,'E'",
+            "9,9,'E','MMLMM',0,0,'N'"
     })
     public void executeInstructionSetTest(int roverInitialPosX, int roverInitialPosY, String roverInitialOrientation,
                                           String roverInstructionSet, int roverExpectedPosX, int roverExpectedPosY, String roverExpectedOrientation) {
