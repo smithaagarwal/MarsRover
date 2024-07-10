@@ -63,4 +63,12 @@ class RoverTest {
         assertEquals(4,r.getPosY());
     }
 
+    @Test
+    public void shouldSetXtoMaxXCoordinatesOfPlateau_whenRoverDirectionIsWAndPosXIsMinXOfPlateau_moveRover() {
+        Rover r = new Rover(plateau.getMinX(),4, Direction.W);
+        r.moveRover(plateau);
+        assertEquals(plateau.getMaxX(),r.getPosX());
+        assertEquals(4,r.getPosY());
+    }
+
 }

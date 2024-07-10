@@ -43,7 +43,9 @@ public class Rover {
                 posX = (posX == plateau.getMaxX())? plateau.getMinX(): posX+1;
             }
 
-            case W -> posX--;
+            case W -> {
+                posX = (posX == plateau.getMinX())? plateau.getMaxX(): posX-1;
+            }
             case N -> posY++;
             case S -> posY--;
         }
