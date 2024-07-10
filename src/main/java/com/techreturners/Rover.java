@@ -5,12 +5,12 @@ import com.techreturners.constants.Direction;
 public class Rover {
     private int posX;
     private int posY;
-    private Direction direction;
+    private Direction orientation;
 
     public Rover(int x, int y, Direction direction) {
         posX = x;
         posY = y;
-        this.direction = direction;
+        this.orientation = direction;
     }
 
     public int getPosX() {
@@ -29,17 +29,20 @@ public class Rover {
         this.posY = posY;
     }
 
-    public Direction getDirection() {
-        return direction;
+    public Direction getOrientation() {
+        return orientation;
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public void setOrientation(Direction orientation) {
+        this.orientation = orientation;
     }
 
-    public void moveRover() {
-        switch (direction) {
-            case E -> posX++;
+    public void moveRover(Plateau plateau) {
+        switch (orientation) {
+            case E -> {
+                posX = (posX == plateau.getMaxX())? plateau.getMinX(): posX+1;
+            }
+
             case W -> posX--;
             case N -> posY++;
             case S -> posY--;
