@@ -8,6 +8,7 @@ public class Rover {
     private int posX;
     private int posY;
     private Direction orientation;
+    private String instructions;
 
     public Rover(int x, int y, Direction direction) {
         posX = x;
@@ -37,6 +38,14 @@ public class Rover {
 
     public void setOrientation(Direction orientation) {
         this.orientation = orientation;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public void moveRover(Plateau plateau) {
