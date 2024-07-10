@@ -25,4 +25,12 @@ class RoverTest {
         assertEquals(4,r.getPosY());
     }
 
+    @Test
+    public void shouldDecreaseXbyOne_whenRoverDirectionIsW_moveRover() {
+        Rover r = new Rover(3,4, Direction.W);
+        r.moveRover();
+        assertEquals(2,r.getPosX());
+        assertEquals(4,r.getPosY());
+    }
+
 }

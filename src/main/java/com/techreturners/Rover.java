@@ -40,5 +40,7 @@ public class Rover {
     public void moveRover() {
         if(direction==Direction.E)
             posX++;
+        if(direction==Direction.W)
+            posX--;
     }
 }
