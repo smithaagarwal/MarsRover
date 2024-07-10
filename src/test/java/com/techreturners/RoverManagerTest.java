@@ -24,7 +24,7 @@ class RoverManagerTest {
     }
 
     @ParameterizedTest
-    @CsvSource ({
+    @CsvSource({
             "'LRMM', true",
             "'LLR', true",
             "'MMM', true",
@@ -33,5 +33,20 @@ class RoverManagerTest {
     })
     public void isInstructionSetValidTest(String instructionSet, boolean expectedOutput) {
         assertEquals(expectedOutput, RoverManager.isInstructionSetValid(instructionSet));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "9, 9, 'N', true",
+            "11, 9, 'N', false",
+            "10, 10, 'S', true",
+            "0, 0, 'N', true",
+            "1, 1, 'D', false",
+            "-1, -1, 'S', false"
+    })
+    void isInitialPositionValidTest(int roverPosX, int roverPosY, String orientation, boolean expectedOutput) {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        assertEquals(expectedOutput, rm.isInitialPositionValid(roverPosX, roverPosY, orientation));
     }
 }
