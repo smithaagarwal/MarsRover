@@ -45,4 +45,10 @@ public class Rover {
             case S -> posY = (posY == plateau.getMinY())? plateau.getMaxY(): posY-1;
         }
     }
+
+    public void turnLeft() {
+        if (orientation == Direction.N)
+            orientation= Direction.W;
+
+    }
 }
