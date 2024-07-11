@@ -139,9 +139,9 @@ class RoverManagerTest {
             "0, 0, 5, 5, true",
             "0, 0, -5, 15, false"
     })
-    void createPlateauWithMaxCoordinatesTest(int defaultMinX, int defaultMinY, int maxX, int maxY, boolean expectedOutput) {
+    void createPlateauWithUserProvidedMaxCoordinatesTest(int defaultMinX, int defaultMinY, int maxX, int maxY, boolean expectedOutput) {
         RoverManager rm = new RoverManager() ;
-        boolean success = rm.createPlateauWithMaxCoordinates(maxX,maxY);
+        boolean success = rm.createPlateauWithUserProvidedMaxCoordinates(maxX,maxY);
         assertEquals(expectedOutput, success);
         if(success) {
             assertEquals(defaultMinX, rm.getPlateau().getMinX());
@@ -151,6 +151,27 @@ class RoverManagerTest {
         } else {
             assertNull(rm.getPlateau());
         }
+    }
 
+    @ParameterizedTest
+    @CsvSource({
+            "5, 5, 20, 15,true",
+            "-5, -5, 5, 5, true",
+            "5, 5, -5, 15, false",
+            "5, 5, 5, 15, false",
+
+    })
+    void createPlateauWithUserProvidedMinAndMaxCoordinates(int minX, int minY, int maxX, int maxY, boolean expectedOutput) {
+        RoverManager rm = new RoverManager() ;
+        boolean success = rm.createPlateauWithUserProvidedMinAndMaxCoordinates(minX, minY, maxX,maxY);
+        assertEquals(expectedOutput, success);
+        if(success) {
+            assertEquals(minX, rm.getPlateau().getMinX());
+            assertEquals(minY, rm.getPlateau().getMinY());
+            assertEquals(maxX, rm.getPlateau().getMaxX());
+            assertEquals(maxY, rm.getPlateau().getMaxY());
+        } else {
+            assertNull(rm.getPlateau());
+        }
     }
 }

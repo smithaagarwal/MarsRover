@@ -65,12 +65,21 @@ public class RoverManager {
         plateau = new Plateau();
     }
 
-    public boolean createPlateauWithMaxCoordinates(int maxX, int maxY) {
+    public boolean createPlateauWithUserProvidedMaxCoordinates(int maxX, int maxY) {
         if(maxX>DEFAULT_LEFT_LOWER_CORNER_X && maxY>DEFAULT_LEFT_LOWER_CORNER_Y) {
             plateau = new Plateau(maxX, maxY);
             return true;
         }
         return false;
+    }
+
+    public boolean createPlateauWithUserProvidedMinAndMaxCoordinates(int minX, int minY, int maxX, int maxY) {
+        if(maxX > minX && maxY> minY) {
+            plateau = new Plateau(minX, minY, maxX, maxY);
+            return true;
+        }
+        return false;
+
     }
 
     public boolean addRoverToBeManaged(int x, int y, String dir, String instructionSet) {
