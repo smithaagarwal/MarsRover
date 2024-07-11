@@ -79,7 +79,7 @@ class RoverManagerTest {
         rm.setPlateau(new Plateau());
         assertEquals(expectedOutput, rm.addRoverToBeManaged(roverInitialPosX, roverInitialPosY, roverInitialOrientation, roverInstructionSet));
         if (expectedOutput)
-            assertEquals(roverInstructionSet, rm.getRoverList().getLast().getInstructions());
+            assertEquals(roverInstructionSet, rm.getRoverList().get(0).getInstructions());
     }
 
     @Test
