@@ -67,18 +67,18 @@ class RoverManagerTest {
                                         String roverInstructionSet, boolean expectedOutput) {
         RoverManager rm = new RoverManager();
         rm.setPlateau(new Plateau());
-        assertEquals(expectedOutput,rm.addRoverToBeManaged(roverInitialPosX,roverInitialPosY,roverInitialOrientation,roverInstructionSet));
-        if(expectedOutput)
-            assertEquals(roverInstructionSet,rm.getRoverList().getLast().getInstructions());
+        assertEquals(expectedOutput, rm.addRoverToBeManaged(roverInitialPosX, roverInitialPosY, roverInitialOrientation, roverInstructionSet));
+        if (expectedOutput)
+            assertEquals(roverInstructionSet, rm.getRoverList().getLast().getInstructions());
     }
 
     @Test
     void executeInstructionsForAllRovers_whenTheyDoNotCauseObstruction() {
         RoverManager rm = new RoverManager();
         rm.setPlateau(new Plateau());
-        Rover r1 = new Rover(1,2,Direction.N);
+        Rover r1 = new Rover(1, 2, Direction.N);
         r1.setInstructions("LMLMLMLMM");
-        Rover r2 = new Rover(3,3,Direction.E);
+        Rover r2 = new Rover(3, 3, Direction.E);
         r2.setInstructions("MMRMMRMRRM");
         List<Rover> roverList = new ArrayList<>();
         roverList.add(r1);
@@ -100,9 +100,9 @@ class RoverManagerTest {
     void executeInstructionsForAllRovers_whenTheyDoCauseObstruction() {
         RoverManager rm = new RoverManager();
         rm.setPlateau(new Plateau());
-        Rover r1 = new Rover(1,2,Direction.N);
+        Rover r1 = new Rover(1, 2, Direction.N);
         r1.setInstructions("LM");
-        Rover r2 = new Rover(1,3,Direction.E);
+        Rover r2 = new Rover(1, 3, Direction.E);
         r2.setInstructions("RMRMMRM");
         List<Rover> roverList = new ArrayList<>();
         roverList.add(r1);
@@ -118,5 +118,18 @@ class RoverManagerTest {
         assertEquals(1, rover2.getPosX());
         assertEquals(2, rover2.getPosY());
         assertEquals(Direction.W, rover2.getOrientation());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0, 0, 10, 10"
+    })
+    void createDefaultPlateauTest(int defaultMinX, int defaultMinY, int defaultMaxX, int defaultMaxY) {
+        RoverManager rm = new RoverManager() ;
+        rm.createDefaultPlateau();
+        assertEquals(defaultMinX, rm.getPlateau().getMinX());
+        assertEquals(defaultMinY, rm.getPlateau().getMinY());
+        assertEquals(defaultMaxX, rm.getPlateau().getMaxX());
+        assertEquals(defaultMaxY, rm.getPlateau().getMaxY());
     }
 }

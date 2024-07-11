@@ -57,6 +57,11 @@ public class RoverManager {
         }
         return false;
     }
+
+    public void createDefaultPlateau() {
+        plateau = new Plateau();
+    }
+
     public boolean addRoverToBeManaged(int x, int y, String dir, String instructionSet) {
         if(isInitialPositionValid(x, y, dir) && isInstructionSetValid(instructionSet)) {
             Rover rover = new Rover(x,y, Direction.valueOf(dir));
