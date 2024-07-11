@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.techreturners.constants.GridConstants.DEFAULT_LEFT_LOWER_CORNER_X;
+import static com.techreturners.constants.GridConstants.DEFAULT_LEFT_LOWER_CORNER_Y;
+
 public class RoverManager {
     private Plateau plateau;
     private List<Rover> roverList;
@@ -60,6 +63,14 @@ public class RoverManager {
 
     public void createDefaultPlateau() {
         plateau = new Plateau();
+    }
+
+    public boolean createPlateauWithMaxCoordinates(int maxX, int maxY) {
+        if(maxX>DEFAULT_LEFT_LOWER_CORNER_X && maxY>DEFAULT_LEFT_LOWER_CORNER_Y) {
+            plateau = new Plateau(maxX, maxY);
+            return true;
+        }
+        return false;
     }
 
     public boolean addRoverToBeManaged(int x, int y, String dir, String instructionSet) {
