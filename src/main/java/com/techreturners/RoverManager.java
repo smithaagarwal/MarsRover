@@ -130,14 +130,18 @@ public class RoverManager {
      * @param instructionSet instructions to move the rover
      * @return true when the all the input is valid and rover is successfully created else return false
      */
-    public boolean addRoverToBeManaged(int x, int y, String dir, String instructionSet) {
-        if(isInitialPositionValid(x, y, dir) && isInstructionSetValid(instructionSet)) {
-            Rover rover = new Rover(x,y, Direction.valueOf(dir));
-            rover.setInstructions(instructionSet);
-            roverList.add(rover);
-            return true;
+    public void addRoverToBeManaged(int x, int y, String dir, String instructionSet) {
+        if(!isInitialPositionValid(x, y, dir)) {
+            throw new IllegalArgumentException(String.format("Rover cannot be placed at %d, %d facing direction %s", x, y, dir));
         }
-        return false;
+
+        if(!isInstructionSetValid(instructionSet)) {
+            throw new IllegalArgumentException(String.format("Instruction to place the Rover is invalid (%s)", instructionSet));
+        }
+
+        Rover rover = new Rover(x,y, Direction.valueOf(dir));
+        rover.setInstructions(instructionSet);
+        roverList.add(rover);
     }
 
     /**

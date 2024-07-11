@@ -53,6 +53,7 @@ class RoverManagerTest {
         rm.setPlateau(new Plateau());
         assertEquals(expectedOutput, rm.isInitialPositionValid(roverPosX, roverPosY, orientation));
     }
+
     @Test
     void shouldReturnFalse_ifAnotherRoverIsPresentAtThatPosition_isInitialPositionValid() {
         RoverManager rm = new RoverManager();
@@ -61,25 +62,48 @@ class RoverManagerTest {
         List<Rover> roverList = new ArrayList<>();
         roverList.add(r1);
         rm.setRoverList(roverList);
-        assertFalse(rm.isInitialPositionValid(1,2,"E"));
+        assertFalse(rm.isInitialPositionValid(1, 2, "E"));
     }
 
     @ParameterizedTest
     @CsvSource({
-            "1,2,'N','LMLMLMLMM',true",
-            "3,3,'E','MMRMMRMRRM',true",
-            "9,9,'E','MMLMM',true",
-            "20,0,'N','MML', false",
-            "0,0,'X','MML', false",
-            "0,0,'N','MMLRZ', false",
+            "1,2,'N','LMLMLMLMM'",
+            "3,3,'E','MMRMMRMRRM'",
+            "9,9,'E','MMLMM'",
     })
     public void addRoverToBeManagedTest(int roverInitialPosX, int roverInitialPosY, String roverInitialOrientation,
-                                        String roverInstructionSet, boolean expectedOutput) {
+                                        String roverInstructionSet) {
         RoverManager rm = new RoverManager();
         rm.setPlateau(new Plateau());
-        assertEquals(expectedOutput, rm.addRoverToBeManaged(roverInitialPosX, roverInitialPosY, roverInitialOrientation, roverInstructionSet));
-        if (expectedOutput)
-            assertEquals(roverInstructionSet, rm.getRoverList().get(0).getInstructions());
+        rm.addRoverToBeManaged(roverInitialPosX, roverInitialPosY, roverInitialOrientation, roverInstructionSet);
+        assertEquals(roverInstructionSet, rm.getRoverList().get(0).getInstructions());
+        assertEquals(roverInitialPosX, rm.getRoverList().get(0).getPosX());
+        assertEquals(roverInitialPosY, rm.getRoverList().get(0).getPosY());
+        assertEquals(roverInitialOrientation, rm.getRoverList().get(0).getOrientation().toString());
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidCoordinates_addRoverToBeManaged() {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        var exception = assertThrows(IllegalArgumentException.class, () -> rm.addRoverToBeManaged(20, 0, "N", "MML"));
+        assertEquals("Rover cannot be placed at 20, 0 facing direction N", exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidDirection_addRoverToBeManaged() {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        var exception = assertThrows(IllegalArgumentException.class, () -> rm.addRoverToBeManaged(0, 0, "C", "MML"));
+        assertEquals("Rover cannot be placed at 0, 0 facing direction C", exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionForInvalidInstructionSet_addRoverToBeManaged() {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        var exception = assertThrows(IllegalArgumentException.class, () -> rm.addRoverToBeManaged(0, 0, "N", "MMLRZ"));
+        assertEquals("Instruction to place the Rover is invalid (MMLRZ)", exception.getMessage());
     }
 
     @Test
@@ -135,7 +159,7 @@ class RoverManagerTest {
             "0, 0, 10, 10"
     })
     void createDefaultPlateauTest(int defaultMinX, int defaultMinY, int defaultMaxX, int defaultMaxY) {
-        RoverManager rm = new RoverManager() ;
+        RoverManager rm = new RoverManager();
         rm.createDefaultPlateau();
         assertEquals(defaultMinX, rm.getPlateau().getMinX());
         assertEquals(defaultMinY, rm.getPlateau().getMinY());
@@ -150,10 +174,10 @@ class RoverManagerTest {
             "0, 0, -5, 15, false"
     })
     void createPlateauWithUserProvidedMaxCoordinatesTest(int defaultMinX, int defaultMinY, int maxX, int maxY, boolean expectedOutput) {
-        RoverManager rm = new RoverManager() ;
-        boolean success = rm.createPlateauWithUserProvidedMaxCoordinates(maxX,maxY);
+        RoverManager rm = new RoverManager();
+        boolean success = rm.createPlateauWithUserProvidedMaxCoordinates(maxX, maxY);
         assertEquals(expectedOutput, success);
-        if(success) {
+        if (success) {
             assertEquals(defaultMinX, rm.getPlateau().getMinX());
             assertEquals(defaultMinY, rm.getPlateau().getMinY());
             assertEquals(maxX, rm.getPlateau().getMaxX());
@@ -172,10 +196,10 @@ class RoverManagerTest {
 
     })
     void createPlateauWithUserProvidedMinAndMaxCoordinates(int minX, int minY, int maxX, int maxY, boolean expectedOutput) {
-        RoverManager rm = new RoverManager() ;
-        boolean success = rm.createPlateauWithUserProvidedMinAndMaxCoordinates(minX, minY, maxX,maxY);
+        RoverManager rm = new RoverManager();
+        boolean success = rm.createPlateauWithUserProvidedMinAndMaxCoordinates(minX, minY, maxX, maxY);
         assertEquals(expectedOutput, success);
-        if(success) {
+        if (success) {
             assertEquals(minX, rm.getPlateau().getMinX());
             assertEquals(minY, rm.getPlateau().getMinY());
             assertEquals(maxX, rm.getPlateau().getMaxX());

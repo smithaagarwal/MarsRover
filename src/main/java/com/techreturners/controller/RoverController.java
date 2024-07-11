@@ -66,11 +66,11 @@ public class RoverController {
 
     @PostMapping("/rovers")
     public ResponseEntity<String> addRover(@RequestParam int x, @RequestParam int y, @RequestParam String dir, @RequestParam String instructionSet) {
-        boolean success = roverManager.addRoverToBeManaged(x, y, dir, instructionSet);
-        if (success) {
+        try {
+            roverManager.addRoverToBeManaged(x, y, dir, instructionSet);
             return new ResponseEntity<>("Rover successfully added", HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("Invalid input", HttpStatus.BAD_REQUEST);
+        } catch(IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
