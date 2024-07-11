@@ -28,4 +28,14 @@ public class RoverController {
         return new ResponseEntity<>("Plateau dimensions: " + plateau.getMaxX() + " x " + plateau.getMaxY(), HttpStatus.CREATED);
     }
 
+    @GetMapping("/plateau")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> getPlateau() {
+        Plateau plateau = roverManager.getPlateau();
+        if (plateau != null) {
+            return new ResponseEntity<>("Plateau dimensions: " + plateau.getMaxX() + " x " + plateau.getMaxY(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No plateau has been created yet.", HttpStatus.OK);
+        }
+    }
 }
