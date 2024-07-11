@@ -1,6 +1,7 @@
 package com.techreturners.controller;
 
 import com.techreturners.Plateau;
+import com.techreturners.Rover;
 import com.techreturners.RoverManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -69,5 +72,11 @@ public class RoverController {
         } else {
             return new ResponseEntity<>("Invalid input", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/rovers")
+    public ResponseEntity<List<Rover>> getRoverList() {
+        List<Rover> roverList = roverManager.getRoverList();
+        return new ResponseEntity<>(roverList, HttpStatus.OK);
     }
 }
