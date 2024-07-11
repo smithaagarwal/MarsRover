@@ -51,3 +51,28 @@ On execution of rover instruction, the x , y and dir of rover is updated
 Refactor this to store the initial x, y and dir as well. Also to clean up the code, create a class Position that stores the x, y and dir
 
 The above endpoints were created to handle input like the ones mentioned in the example above
+
+Run the application:
+mvn clean package
+mvn spring-boot:run
+
+Once the application is running, you can access it using a web browser or Postman. I used Postman for testing
+To verify the application is up:
+http://localhost:8080/hello
+You should see the response: "Hello, Mars!"
+
+Create Default Plateau:
+POST http://localhost:8080/plateau/default
+
+Create Plateau with Max Coordinates:
+http://localhost:8080/plateau/max-coordinates?maxX=10&maxY=10
+
+Add Rover:
+http://localhost:8080/rovers?x=1&y=2&dir=N&instructionSet=LMLMLMLMM
+
+Execute Instructions for All Rovers:
+http://localhost:8080/rovers/execute
+
+Get Rovers:
+http://localhost:8080/rovers
+
