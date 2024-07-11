@@ -51,11 +51,15 @@ public class RoverManager {
     public boolean isInitialPositionValid(int x, int y, String dir) {
         if(x <= plateau.getMaxX() && x >= plateau.getMinX() &&
                 y <= plateau.getMaxY() && y >= plateau.getMinY()){
-            try {
-                Direction.valueOf(dir);
-                return true;
-            } catch (IllegalArgumentException e) {
-                return false;
+            boolean isNotPresentAtPos = roverList.stream()
+                    .noneMatch(rover -> rover.getPosX()== x && rover.getPosY()==y);
+            if (isNotPresentAtPos) {
+                try {
+                    Direction.valueOf(dir);
+                    return true;
+                } catch (IllegalArgumentException e) {
+                    return false;
+                }
             }
         }
         return false;

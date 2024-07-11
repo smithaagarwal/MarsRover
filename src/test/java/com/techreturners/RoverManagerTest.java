@@ -53,6 +53,16 @@ class RoverManagerTest {
         rm.setPlateau(new Plateau());
         assertEquals(expectedOutput, rm.isInitialPositionValid(roverPosX, roverPosY, orientation));
     }
+    @Test
+    void shouldReturnFalse_ifAnotherRoverIsPresentAtThatPosition_isInitialPositionValid() {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        Rover r1 = new Rover(1, 2, Direction.N);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r1);
+        rm.setRoverList(roverList);
+        assertFalse(rm.isInitialPositionValid(1,2,"E"));
+    }
 
     @ParameterizedTest
     @CsvSource({
