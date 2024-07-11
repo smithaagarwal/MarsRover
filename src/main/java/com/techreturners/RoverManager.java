@@ -2,6 +2,7 @@ package com.techreturners;
 
 import com.techreturners.constants.Direction;
 import com.techreturners.constants.Instruction;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import java.util.List;
 import static com.techreturners.constants.GridConstants.DEFAULT_LEFT_LOWER_CORNER_X;
 import static com.techreturners.constants.GridConstants.DEFAULT_LEFT_LOWER_CORNER_Y;
 
+@Component
 public class RoverManager {
     private Plateau plateau;
     private List<Rover> roverList;
