@@ -60,4 +60,14 @@ public class RoverController {
             return new ResponseEntity<>("No plateau has been created yet.", HttpStatus.OK);
         }
     }
+
+    @PostMapping("/rovers")
+    public ResponseEntity<Void> addRover(@RequestParam int x, @RequestParam int y, @RequestParam String dir, @RequestParam String instructionSet) {
+        boolean success = roverManager.addRoverToBeManaged(x, y, dir, instructionSet);
+        if (success) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
