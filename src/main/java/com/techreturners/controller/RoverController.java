@@ -79,4 +79,10 @@ public class RoverController {
         List<Rover> roverList = roverManager.getRoverList();
         return new ResponseEntity<>(roverList, HttpStatus.OK);
     }
+
+    @PostMapping("/rovers/execute")
+    public ResponseEntity<String> executeInstructionsForAllRovers() {
+        roverManager.executeInstructionsForAllRovers();
+        return new ResponseEntity<>("Executed instructions for all the rovers", HttpStatus.OK);
+    }
 }
