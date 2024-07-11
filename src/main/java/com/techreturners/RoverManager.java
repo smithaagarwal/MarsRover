@@ -66,4 +66,10 @@ public class RoverManager {
         }
         return false;
     }
+
+    public void executeInstructionsForAllRovers() {
+        for(Rover rover:roverList){
+            rover.executeInstructionSet(plateau);
+        }
+    }
 }

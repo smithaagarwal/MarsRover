@@ -1,10 +1,14 @@
 package com.techreturners;
 
+import com.techreturners.constants.Direction;
 import com.techreturners.constants.Instruction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,5 +70,29 @@ class RoverManagerTest {
         assertEquals(expectedOutput,rm.addRoverToBeManaged(roverInitialPosX,roverInitialPosY,roverInitialOrientation,roverInstructionSet));
         if(expectedOutput)
             assertEquals(roverInstructionSet,rm.getRoverList().getLast().getInstructions());
+    }
+
+    @Test
+    void executeInstructionsForAllRovers_whenTheyDoNotCauseObstruction() {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        Rover r1 = new Rover(1,2,Direction.N);
+        r1.setInstructions("LMLMLMLMM");
+        Rover r2 = new Rover(3,3,Direction.E);
+        r2.setInstructions("MMRMMRMRRM");
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r1);
+        roverList.add(r2);
+        rm.setRoverList(roverList);
+        rm.executeInstructionsForAllRovers();
+        Rover rover1 = rm.getRoverList().get(0);
+        Rover rover2 = rm.getRoverList().get(1);
+        assertEquals(1, rover1.getPosX());
+        assertEquals(3, rover1.getPosY());
+        assertEquals(Direction.N, rover1.getOrientation());
+
+        assertEquals(5, rover2.getPosX());
+        assertEquals(1, rover2.getPosY());
+        assertEquals(Direction.E, rover2.getOrientation());
     }
 }
