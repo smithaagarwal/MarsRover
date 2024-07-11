@@ -25,7 +25,7 @@ public class RoverController {
     public ResponseEntity<String> createDefaultPlateau() {
         roverManager.createDefaultPlateau();
         Plateau plateau = roverManager.getPlateau();
-        return new ResponseEntity<>("Plateau dimensions: " + plateau.getMaxX() + " x " + plateau.getMaxY(), HttpStatus.CREATED);
+        return new ResponseEntity<>("Plateau dimensions: (" + plateau.getMinX() + ", " + plateau.getMinY() +") (" +plateau.getMaxX() + " , " + plateau.getMaxY()+")", HttpStatus.CREATED);
     }
 
     @PostMapping("/plateau/max-coordinates")
@@ -33,7 +33,18 @@ public class RoverController {
         boolean success = roverManager.createPlateauWithUserProvidedMaxCoordinates(maxX, maxY);
         if (success) {
             Plateau plateau = roverManager.getPlateau();
-            return new ResponseEntity<>("Plateau dimensions: " + plateau.getMaxX() + " x " + plateau.getMaxY(), HttpStatus.CREATED);
+            return new ResponseEntity<>("Plateau dimensions: (" + plateau.getMinX() + ", " + plateau.getMinY() +") (" +plateau.getMaxX() + " , " + plateau.getMaxY()+")", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Invalid coordinates passed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/plateau/min-max-coordinates")
+    public ResponseEntity<String> createPlateauWithMinAndMaxCoordinates(@RequestParam int minX, @RequestParam int minY, @RequestParam int maxX, @RequestParam int maxY) {
+        boolean success = roverManager.createPlateauWithUserProvidedMinAndMaxCoordinates(minX, minY, maxX, maxY);
+        if (success) {
+            Plateau plateau = roverManager.getPlateau();
+            return new ResponseEntity<>("Plateau dimensions: (" + plateau.getMinX() + ", " + plateau.getMinY() +") (" +plateau.getMaxX() + " , " + plateau.getMaxY()+")", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Invalid coordinates passed", HttpStatus.BAD_REQUEST);
         }
