@@ -49,4 +49,22 @@ class RoverManagerTest {
         rm.setPlateau(new Plateau());
         assertEquals(expectedOutput, rm.isInitialPositionValid(roverPosX, roverPosY, orientation));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1,2,'N','LMLMLMLMM',true",
+            "3,3,'E','MMRMMRMRRM',true",
+            "9,9,'E','MMLMM',true",
+            "20,0,'N','MML', false",
+            "0,0,'X','MML', false",
+            "0,0,'N','MMLRZ', false",
+    })
+    public void addRoverToBeManagedTest(int roverInitialPosX, int roverInitialPosY, String roverInitialOrientation,
+                                        String roverInstructionSet, boolean expectedOutput) {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        assertEquals(expectedOutput,rm.addRoverToBeManaged(roverInitialPosX,roverInitialPosY,roverInitialOrientation,roverInstructionSet));
+        if(expectedOutput)
+            assertEquals(roverInstructionSet,rm.getRoverList().getLast().getInstructions());
+    }
 }

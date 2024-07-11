@@ -60,6 +60,7 @@ public class RoverManager {
     public boolean addRoverToBeManaged(int x, int y, String dir, String instructionSet) {
         if(isInitialPositionValid(x, y, dir) && isInstructionSetValid(instructionSet)) {
             Rover rover = new Rover(x,y, Direction.valueOf(dir));
+            rover.setInstructions(instructionSet);
             roverList.add(rover);
             return true;
         }
