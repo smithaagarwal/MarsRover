@@ -95,4 +95,28 @@ class RoverManagerTest {
         assertEquals(1, rover2.getPosY());
         assertEquals(Direction.E, rover2.getOrientation());
     }
+
+    @Test
+    void executeInstructionsForAllRovers_whenTheyDoCauseObstruction() {
+        RoverManager rm = new RoverManager();
+        rm.setPlateau(new Plateau());
+        Rover r1 = new Rover(1,2,Direction.N);
+        r1.setInstructions("LM");
+        Rover r2 = new Rover(1,3,Direction.E);
+        r2.setInstructions("RMRMMRM");
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r1);
+        roverList.add(r2);
+        rm.setRoverList(roverList);
+        rm.executeInstructionsForAllRovers();
+        Rover rover1 = rm.getRoverList().get(0);
+        Rover rover2 = rm.getRoverList().get(1);
+        assertEquals(0, rover1.getPosX());
+        assertEquals(2, rover1.getPosY());
+        assertEquals(Direction.W, rover1.getOrientation());
+
+        assertEquals(1, rover2.getPosX());
+        assertEquals(2, rover2.getPosY());
+        assertEquals(Direction.W, rover2.getOrientation());
+    }
 }

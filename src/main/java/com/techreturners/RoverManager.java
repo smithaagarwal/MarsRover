@@ -69,7 +69,7 @@ public class RoverManager {
 
     public void executeInstructionsForAllRovers() {
         for(Rover rover:roverList){
-            rover.executeInstructionSet(plateau);
+            rover.executeInstructionSet(plateau, roverList);
         }
     }
 }

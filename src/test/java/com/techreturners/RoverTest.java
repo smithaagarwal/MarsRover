@@ -7,6 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoverTest {
@@ -31,7 +34,9 @@ class RoverTest {
     @Test
     public void shouldIncreaseXbyOne_whenRoverDirectionIsE_moveRover() {
         Rover r = new Rover(3, 4, Direction.E);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(4, r.getPosX());
         assertEquals(4, r.getPosY());
     }
@@ -39,7 +44,9 @@ class RoverTest {
     @Test
     public void shouldDecreaseXbyOne_whenRoverDirectionIsW_moveRover() {
         Rover r = new Rover(3, 4, Direction.W);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(2, r.getPosX());
         assertEquals(4, r.getPosY());
     }
@@ -47,7 +54,9 @@ class RoverTest {
     @Test
     public void shouldIncreaseYbyOne_whenRoverDirectionIsN_moveRover() {
         Rover r = new Rover(3, 4, Direction.N);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(3, r.getPosX());
         assertEquals(5, r.getPosY());
     }
@@ -55,7 +64,9 @@ class RoverTest {
     @Test
     public void shouldDecreaseYbyOne_whenRoverDirectionIsN_moveRover() {
         Rover r = new Rover(3, 4, Direction.S);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(3, r.getPosX());
         assertEquals(3, r.getPosY());
     }
@@ -63,7 +74,9 @@ class RoverTest {
     @Test
     public void shouldSetXtoMinXCoordinatesOfPlateau_whenRoverDirectionIsEAndPosXIsMaxXOfPlateau_moveRover() {
         Rover r = new Rover(plateau.getMaxX(), 4, Direction.E);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(plateau.getMinX(), r.getPosX());
         assertEquals(4, r.getPosY());
     }
@@ -71,7 +84,9 @@ class RoverTest {
     @Test
     public void shouldSetXtoMaxXCoordinatesOfPlateau_whenRoverDirectionIsWAndPosXIsMinXOfPlateau_moveRover() {
         Rover r = new Rover(plateau.getMinX(), 4, Direction.W);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(plateau.getMaxX(), r.getPosX());
         assertEquals(4, r.getPosY());
     }
@@ -79,7 +94,9 @@ class RoverTest {
     @Test
     public void shouldSetYtoMinYCoordinatesOfPlateau_whenRoverDirectionIsSAndPosYIsMaxYOfPlateau_moveRover() {
         Rover r = new Rover(3, plateau.getMinY(), Direction.S);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(3, r.getPosX());
         assertEquals(plateau.getMaxY(), r.getPosY());
     }
@@ -87,7 +104,9 @@ class RoverTest {
     @Test
     public void shouldSetYtoMaxYCoordinatesOfPlateau_whenRoverDirectionIsNAndPosYIsMinYOfPlateau_moveRover() {
         Rover r = new Rover(3, plateau.getMaxY(), Direction.N);
-        r.moveRover(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.moveRover(plateau, roverList);
         assertEquals(3, r.getPosX());
         assertEquals(plateau.getMinY(), r.getPosY());
     }
@@ -143,7 +162,9 @@ class RoverTest {
                                           String roverInstructionSet, int roverExpectedPosX, int roverExpectedPosY, String roverExpectedOrientation) {
         Rover r = new Rover(roverInitialPosX, roverInitialPosY, Direction.valueOf(roverInitialOrientation));
         r.setInstructions(roverInstructionSet);
-        r.executeInstructionSet(plateau);
+        List<Rover> roverList = new ArrayList<>();
+        roverList.add(r);
+        r.executeInstructionSet(plateau,roverList);
         assertEquals(roverExpectedPosX, r.getPosX());
         assertEquals(roverExpectedPosY, r.getPosY());
         assertEquals(Direction.valueOf(roverExpectedOrientation), r.getOrientation());

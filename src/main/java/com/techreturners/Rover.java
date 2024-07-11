@@ -3,6 +3,7 @@ package com.techreturners;
 import com.techreturners.constants.Direction;
 import com.techreturners.constants.Instruction;
 
+import java.util.List;
 import static com.techreturners.constants.Direction.*;
 
 public class Rover {
@@ -49,13 +50,25 @@ public class Rover {
         this.instructions = instructions;
     }
 
-    public void moveRover(Plateau plateau) {
+    public boolean moveRover(Plateau plateau, List<Rover> roverList) {
+        int newX=posX;
+        int newY = posY;
         switch (orientation) {
-            case E -> posX = (posX == plateau.getMaxX())? plateau.getMinX(): posX+1;
-            case W -> posX = (posX == plateau.getMinX())? plateau.getMaxX(): posX-1;
-            case N -> posY = (posY == plateau.getMaxY())? plateau.getMinY(): posY+1;
-            case S -> posY = (posY == plateau.getMinY())? plateau.getMaxY(): posY-1;
+            case E -> newX = (posX == plateau.getMaxX())? plateau.getMinX(): posX+1;
+            case W -> newX = (posX == plateau.getMinX())? plateau.getMaxX(): posX-1;
+            case N -> newY = (posY == plateau.getMaxY())? plateau.getMinY(): posY+1;
+            case S -> newY = (posY == plateau.getMinY())? plateau.getMaxY(): posY-1;
         }
+        int finalNewX = newX;
+        int finalNewY = newY;
+        boolean isNotPresentAtPos = roverList.stream()
+                .noneMatch(rover -> rover.getPosX()== finalNewX && rover.getPosY()==finalNewY);
+        if (isNotPresentAtPos) {
+            posX = newX;
+            posY = newY;
+            return true;
+        }
+        return false;
     }
 
     public void turnLeft() {
@@ -76,14 +89,17 @@ public class Rover {
         }
     }
 
-    public void executeInstructionSet(Plateau plateau) {
+    public void executeInstructionSet(Plateau plateau, List<Rover> roverList) {
         String[] instructionArray = instructions.split("");
+        boolean moveSuccess = true;
         for(String singleInstruction: instructionArray) {
             switch (Instruction.valueOf(singleInstruction)) {
                 case L -> turnLeft();
                 case R -> turnRight();
-                case M -> moveRover(plateau);
+                case M ->  moveSuccess = moveRover(plateau, roverList);
             }
+            if(!moveSuccess)
+                break;
         }
     }
 }
