@@ -28,6 +28,17 @@ public class RoverController {
         return new ResponseEntity<>("Plateau dimensions: " + plateau.getMaxX() + " x " + plateau.getMaxY(), HttpStatus.CREATED);
     }
 
+    @PostMapping("/plateau/max-coordinates")
+    public ResponseEntity<String> createPlateauWithMaxCoordinates(@RequestParam int maxX, @RequestParam int maxY) {
+        boolean success = roverManager.createPlateauWithUserProvidedMaxCoordinates(maxX, maxY);
+        if (success) {
+            Plateau plateau = roverManager.getPlateau();
+            return new ResponseEntity<>("Plateau dimensions: " + plateau.getMaxX() + " x " + plateau.getMaxY(), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Invalid coordinates passed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/plateau")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> getPlateau() {
